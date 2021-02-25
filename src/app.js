@@ -1,8 +1,9 @@
 import React from 'react';
+import {Cards} from './components/Cards'
 
 const App = () => {
   return (
-    <div>Hello World!</div>
+    <Cards/>
   );
 };
 

@@ -3,7 +3,8 @@ import axios from 'axios'
 import TinderCard from 'react-tinder-card'
 import { withGoogleMap, GoogleMap, DirectionsRenderer } from 'react-google-maps';
 
-
+//get directions working with current location
+//get swiping to work
 
 
 const API_KEY = 'GM4xwbLME39A7fdii1TaLLa7JHIWYwGLCppJz7zoqUjAsVev8kfGGSZ4eXgtJdX-6lwpGwQgUUzy_ffF7Pp3yZcr2qbQobJj06LAPcbEPg7-fITAfS9Hisze7fo2YHYx'

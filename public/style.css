@@ -1,5 +1,6 @@
 img {
   width: 50%;
+  max-height: 150px;
 }
 
 .card {

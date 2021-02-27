@@ -1,6 +1,8 @@
 import React from "react";
 import axios from 'axios'
 import TinderCard from 'react-tinder-card'
+import { withGoogleMap, GoogleMap, DirectionsRenderer } from 'react-google-maps';
+
 
 
 
@@ -21,7 +23,11 @@ export class Cards extends React.Component {
       location: 'NYC',
       categories: '',
       restaurants: [],
-      next: false
+      next: false,
+      map: false,
+      directions: null,
+      lat:'0',
+      long:'0'
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -32,7 +38,11 @@ export class Cards extends React.Component {
   async componentDidMount() {
     const {location, categories} = this.state
     const res =  await axios.get(`/home?location=${location}&categories=${categories}`)
-    this.setState({restaurants: res.data.businesses})    
+    this.setState({restaurants: res.data.businesses})
+    // navigator.geolocation.getCurrentPosition((positions)=> {
+    //   console.log(position)
+    //   this.setState({lat:position.coords.latitude, long:position.coords.longitude,restaurants: res.data.businesses})
+    // });
   }
   handleChange(ev){
     const {name, value} = ev.target
@@ -59,6 +69,7 @@ export class Cards extends React.Component {
   }
   
   render() {
+    console.log(this.state)
     const { restaurants } = this.state;
     const res = restaurants[0]
     if(this.state.next === false){
@@ -90,20 +101,53 @@ export class Cards extends React.Component {
         </div> 
       )
 
-    }else{
+    }else if(this.state.next === true && this.state.map === false){
       return(
         <div id='main'>
           <h1>NEXTaurants</h1>
           <h2>{res.name}</h2>
           <div>
-            <button >Get Directions</button>
+            <button onClick={()=>{this.setState({map: true})}}>Get Directions</button>
             <button ><a href={res.url}>Make a Reservation</a></button>
           </div>
         </div> 
       )
-    }
+    }else if(this.state.map === true){
+      const Directions = withGoogleMap(props => (
+        <GoogleMap defaultCenter = { { lat: 40.756795, lng: -73.954298 } } defaultZoom = { 13 }>
+          <DirectionsRenderer />
+        </GoogleMap>
+      ));
+      const directionsService = new google.maps.DirectionsService();
+
+      const origin = { lat: this.state.lat, lng: this.state.long };
+      const destination = { lat: res.coordinates.latitude, lng: res.coordinates.longitude };
+
+      directionsService.route(
+        {
+          origin: origin,
+          destination: destination,
+          travelMode: google.maps.TravelMode.DRIVING
+        },
+        (result, status) => {
+          if (status === google.maps.DirectionsStatus.OK) {
+            this.setState({
+              directions: result
+            });
+          } else {
+            console.error(`error fetching directions ${result}`);
+          }
+        }
+      );
+      return(
+        <div>
+          <Directions containerElement={ <div style={{ height: `500px`, width: '500px' }} /> } mapElement={ <div style={{ height: `100%` }} /> }/>
+        </div>
+      );
+     }
   }
-}
+  }
+
 
 
 

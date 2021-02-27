@@ -1,0 +1,33 @@
+img {
+  width: 50%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  width: 33%;
+  margin: 30px;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  margin: 10px;
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+}
+
+#search {
+  width: 25%;
+  align-self: center;
+  margin-top: 10px;
+}

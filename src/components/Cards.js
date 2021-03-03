@@ -27,8 +27,8 @@ export class Cards extends React.Component {
       next: false,
       map: false,
       directions: null,
-      lat:'0',
-      long:'0'
+      lat:40.741895,
+      long:-73.989308
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -36,14 +36,18 @@ export class Cards extends React.Component {
     this.nextButt = this.nextButt.bind(this)
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const {location, categories} = this.state
-    const res =  await axios.get(`/home?location=${location}&categories=${categories}`)
-    this.setState({restaurants: res.data.businesses})
-    // navigator.geolocation.getCurrentPosition((positions)=> {
+    axios.get(`/home?location=${location}&categories=${categories}`)
+      .then(res => this.setState({restaurants: res.data.businesses}))
+      // .then(() => navigator.geolocation.getCurrentPosition(getLoc))
+    // this.setState({restaurants: res.data.businesses})
+    // const getLoc = (position)=> {
     //   console.log(position)
-    //   this.setState({lat:position.coords.latitude, long:position.coords.longitude,restaurants: res.data.businesses})
-    // });
+    //   this.setState({lat: position.coords.latitude, long: position.coords.longitude})
+    // }
+  
+    // console.log(navigator.geolocation)
   }
   handleChange(ev){
     const {name, value} = ev.target
@@ -70,9 +74,9 @@ export class Cards extends React.Component {
   }
   
   render() {
-    console.log(this.state)
     const { restaurants } = this.state;
     const res = restaurants[0]
+    console.log(this.state.restaurants[0])
     if(this.state.next === false){
       return (
         <div id='main'>
@@ -86,15 +90,15 @@ export class Cards extends React.Component {
             </div>
             <button id='search' onClick={this.handleSubmit}>Search</button>
           </div>
-          {res ? <TinderCard className='card' onSwipe={(dir) => this.next(dir)}>
-            <h2>{res.name}</h2>
-            <img src={res.image_url}/>
-            <p>Rating: {res.rating} ({res.review_count} reviews)</p>
-            <p>Price: {res.price}</p>
-            <p>Phone Number: {res.display_phone}</p>
-            <p>Address: {res.location.address1}</p>
-            <p>{res.location.city}, {res.location.state} {res.location.zip_code}</p>
-          </TinderCard> : ''}
+            {res ? <TinderCard className='card'  onSwipe={(dir) => this.next(dir)}>
+                <h2>{res.name}</h2>
+                <img src={res.image_url}/>
+                <p>Rating: {res.rating} ({res.review_count} reviews)</p>
+                <p>Price: {res.price}</p>
+                <p>Phone Number: {res.display_phone}</p>
+                <p>Address: {res.location.address1}</p>
+                <p>{res.location.city}, {res.location.state} {res.location.zip_code}</p>
+            </TinderCard> : ''}
           <div>
             <button onClick={this.nextButt}>NEXT</button>
             <button onClick={()=>{this.setState({next:true})}}>GO</button>
@@ -114,9 +118,9 @@ export class Cards extends React.Component {
         </div> 
       )
     }else if(this.state.map === true){
-      const Directions = withGoogleMap(props => (
+      const Directions = withGoogleMap(() => (
         <GoogleMap defaultCenter = { { lat: 40.756795, lng: -73.954298 } } defaultZoom = { 13 }>
-          <DirectionsRenderer />
+          <DirectionsRenderer directions={this.state.directions}/>
         </GoogleMap>
       ));
       const directionsService = new google.maps.DirectionsService();
@@ -128,7 +132,7 @@ export class Cards extends React.Component {
         {
           origin: origin,
           destination: destination,
-          travelMode: google.maps.TravelMode.DRIVING
+          travelMode: google.maps.TravelMode.TRANSIT
         },
         (result, status) => {
           if (status === google.maps.DirectionsStatus.OK) {

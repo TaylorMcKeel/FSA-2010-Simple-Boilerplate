@@ -1,9 +1,18 @@
 import React from 'react';
-import {Cards} from './components/Cards'
+import { HashRouter} from "react-router-dom";
+
+import {Routes} from './Routes'
+import {NavBar} from './components'
 
 const App = () => {
   return (
-    <Cards/>
+    <HashRouter>
+      <div>
+        <NavBar/>
+        <Routes/>
+      </div>
+    </HashRouter>
+
   );
 };
 

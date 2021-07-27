@@ -1,5 +1,5 @@
 {
-  "name": "fsa-2010-simple-boilerplate",
+  "name": "NEXTaurant",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -31,9 +31,13 @@
   "dependencies": {
     "axios": "^0.21.1",
     "css-loader": "^5.0.2",
+    "dotenv": "^10.0.0",
+    "dotenv-webpack": "^7.0.3",
     "express": "^4.17.1",
     "file-loader": "^6.2.0",
+    "moment-locales-webpack-plugin": "^1.2.0",
     "node-dev": "^6.3.0",
+    "pg": "^8.6.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-geolocated": "^3.1.0",
@@ -42,6 +46,7 @@
     "react-router-dom": "^5.2.0",
     "react-tinder-card": "^1.3.1",
     "redux": "^4.0.5",
+    "sequelize": "^6.6.5",
     "style-loader": "^2.0.0"
   }
 }

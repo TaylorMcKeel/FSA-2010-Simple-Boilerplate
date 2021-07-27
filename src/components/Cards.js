@@ -2,17 +2,15 @@ import React from "react";
 import axios from 'axios'
 import TinderCard from 'react-tinder-card'
 import { withGoogleMap, GoogleMap, DirectionsRenderer } from 'react-google-maps';
-
-//get directions working with current location
-//get swiping to work
+import { Link } from "react-router-dom";
 
 
-const API_KEY = 'GM4xwbLME39A7fdii1TaLLa7JHIWYwGLCppJz7zoqUjAsVev8kfGGSZ4eXgtJdX-6lwpGwQgUUzy_ffF7Pp3yZcr2qbQobJj06LAPcbEPg7-fITAfS9Hisze7fo2YHYx'
+
 
 const yelpREST = axios.create({
   baseURL: "https://api.yelp.com/v3/",
   headers: {
-    "Authorization": `Bearer ${API_KEY}`,
+    "Authorization": `Bearer ${process.env.API_KEY}`,
     "Content-type": "application/json",
   },
 })
@@ -37,8 +35,9 @@ export class Cards extends React.Component {
   }
 
   componentDidMount() {
+    console.log(process.env.API_KEY)
     const {location, categories} = this.state
-    axios.get(`/home?location=${location}&categories=${categories}`)
+    axios.get(`/home?location=${location}&categories=${categories}&api=${process.env.API_KEY}`)
       .then(res => this.setState({restaurants: res.data.businesses}))
       // .then(() => navigator.geolocation.getCurrentPosition(getLoc))
     // this.setState({restaurants: res.data.businesses})
@@ -55,7 +54,7 @@ export class Cards extends React.Component {
   }
   async handleSubmit(){
     const {location, categories} = this.state
-    const res =  await axios.get(`/home?location=${location}&categories=${categories}`)
+    const res =  await axios.get(`/home?location=${location}&categories=${categories}&api=${process.env.API_KEY}`)
     console.log(res.data.businesses)
     this.setState({restaurants: res.data.businesses})   
   }
@@ -80,7 +79,6 @@ export class Cards extends React.Component {
     if(this.state.next === false){
       return (
         <div id='main'>
-          <h1>NEXTaurants</h1>
           <div id='form'>
             <div >
               <label for="location">Zip Code:</label>
@@ -98,10 +96,11 @@ export class Cards extends React.Component {
                 <p>Phone Number: {res.display_phone}</p>
                 <p>Address: {res.location.address1}</p>
                 <p>{res.location.city}, {res.location.state} {res.location.zip_code}</p>
+                <button>Save for Later</button>
             </TinderCard> : ''}
           <div>
             <button onClick={this.nextButt}>NEXT</button>
-            <button onClick={()=>{this.setState({next:true})}}>GO</button>
+            <button onClick={()=>{this.setState({next:true})}}><Link to='/chosen'>GO</Link></button>
           </div>
         </div> 
       )
@@ -109,7 +108,6 @@ export class Cards extends React.Component {
     }else if(this.state.next === true && this.state.map === false){
       return(
         <div id='main'>
-          <h1>NEXTaurants</h1>
           <h2>{res.name}</h2>
           <div>
             <button onClick={()=>{this.setState({map: true})}}>Get Directions</button>

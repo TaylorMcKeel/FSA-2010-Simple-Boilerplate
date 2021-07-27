@@ -1,4 +1,7 @@
 const path = require('path');
+const webpack = require('webpack')
+require('dotenv').config();
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -28,4 +31,13 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        API_KEY: JSON.stringify(process.env.API_KEY),
+      },
+    }),
+    // To strip all locales except “en”
+    new MomentLocalesPlugin(),
+  ],
 };

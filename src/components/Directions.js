@@ -1,69 +1,77 @@
 import React from "react";
-import axios from 'axios'
-import TinderCard from 'react-tinder-card'
-import { withGoogleMap, GoogleMap, DirectionsRenderer } from 'react-google-maps';
 import { connect } from 'react-redux';
+import { withGoogleMap, GoogleMap, DirectionsRenderer, withScriptjs, Marker, InfoWindow} from 'react-google-maps';
+
+const MAP_API = process.env.MAP_KEY
+
+const Map = withScriptjs(withGoogleMap((props) =>{  
+  const chosen = props.chosen  
+  console.log(chosen)
+    return (
+      <GoogleMap zoom={14} center={ { lat:  chosen.lat*1, lng: chosen.long*1 } } >
+            <div>
+              <Marker key={chosen.id} position={{lat: chosen.lat*1, lng: chosen.long*1}} />
+              <InfoWindow
+                 position={{
+                    lat: chosen.lat*1,
+                    lng: chosen.long*1
+                 }}
+              >
+                <div>
+                  <h5>{chosen.name}</h5>
+                </div>
+              </InfoWindow>
+            </div>
+      </GoogleMap>
+    )  
+}))
+
 
 
 export class Directions extends React.Component {
   constructor(props){
     super(props);
-    this.state = {}
+    this.state = {
+    }
    
   }
-
+  componentDidMount(){
+   
+  }
  
   
   render() {
+    
     return(
-      <div></div>
+      <div className="map-container">
+        <Map
+           chosen={this.props.chosen}
+          //  marker= {this.state.selectedMarker}
+           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${MAP_API}&v=3.exp&libraries=geometry,drawing,places`}
+           loadingElement={<div style={{ height: `100%` }} />}
+           containerElement={<div style={{ height: `400px`, width: `100%` }} />}
+           mapElement={<div style={{ height: `100%` }} />}
+        />
+       </div>
     )
         
   }
 }
 
-export default (Directions);
+const mapState = ({curr}) => {
+  return {
+    curr: curr,
+  }
+};
 
- // else if(this.state.next === true && this.state.map === false){
-    //   return(
-    //     <div id='main'>
-    //       <h2>{res.name}</h2>
-    //       <div>
-    //         <button onClick={()=>{this.setState({map: true})}}>Get Directions</button>
-    //         <button ><a href={res.url}>Make a Reservation</a></button>
-    //       </div>
-    //     </div> 
-    //   )
-    // }else if(this.state.map === true){
-    //   const Directions = withGoogleMap(() => (
-    //     <GoogleMap defaultCenter = { { lat: 40.756795, lng: -73.954298 } } defaultZoom = { 13 }>
-    //       <DirectionsRenderer directions={this.state.directions}/>
-    //     </GoogleMap>
-    //   ));
-    //   const directionsService = new google.maps.DirectionsService();
+const mapDispatch = dispatch => {
+  return {
+    loadCurr: ()=> dispatch(loadCurr()),
+    deleteCurr: (info)=>dispatch(deleteCurr(info)),
+  }
+};
 
-    //   const origin = { lat: this.state.lat, lng: this.state.long };
-    //   const destination = { lat: res.coordinates.latitude, lng: res.coordinates.longitude };
 
-    //   directionsService.route(
-    //     {
-    //       origin: origin,
-    //       destination: destination,
-    //       travelMode: google.maps.TravelMode.TRANSIT
-    //     },
-    //     (result, status) => {
-    //       if (status === google.maps.DirectionsStatus.OK) {
-    //         this.setState({
-    //           directions: result
-    //         });
-    //       } else {
-    //         console.error(`error fetching directions ${result}`);
-    //       }
-    //     }
-    //   );
-    //   return(
-    //     <div>
-    //       <Directions containerElement={ <div style={{ height: `500px`, width: '500px' }} /> } mapElement={ <div style={{ height: `100%` }} /> }/>
-    //     </div>
-    //   );
-    //  }
+export default connect(mapState, mapDispatch)(Directions);
+
+

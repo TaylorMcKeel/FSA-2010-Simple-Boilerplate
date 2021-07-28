@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import {loadCurr, deleteCurr} from '../store/curr'
 import {addFave} from '../store/faves'
+import {Directions} from './Directions'
 
 export class Chosen extends React.Component {
   constructor(props){
@@ -52,6 +53,9 @@ export class Chosen extends React.Component {
             }
             <button onClick={this.removeChosen}><Link to='/cards'>Start Over</Link></button>
           </div>
+        </div>
+        <div >
+          <Directions chosen={chosen}/>
         </div>
       </div>
     )

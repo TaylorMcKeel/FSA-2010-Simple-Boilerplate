@@ -1,7 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import axios from 'axios';
 import thunk from 'redux-thunk';
-import {logger, createLogger } from 'redux-logger';
+import {createLogger } from 'redux-logger';
 import {composeWithDevTools} from 'redux-devtools-extension'
 import { favesReducer } from './faves'
 import { currReducer } from './curr'

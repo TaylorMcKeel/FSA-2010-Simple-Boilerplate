@@ -10,7 +10,7 @@ const Fave = db.define('fave', {
     type: STRING,
   },
   rating: {
-    type: INTEGER
+    type: STRING
   },
   reviews: {
     type: INTEGER
@@ -39,6 +39,9 @@ const Fave = db.define('fave', {
   long: {
     type: STRING
   },
+  website: {
+    type: STRING
+  }
 })
 
 module.exports = Fave

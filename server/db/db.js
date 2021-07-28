@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-//taken from Nick
+// //taken from Nick
 let config;
 if (process.env.DATABASE_URL) {
   config = {

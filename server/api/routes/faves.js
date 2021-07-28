@@ -22,10 +22,13 @@ router.post("/", async (req, res, next) => {
 });
 
 //deletes a fave
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:name", async (req, res, next) => {
 	try {
-		const fave = await Fave.findByPk(req.params.id);
-		await fave.destroy();
+		await Fave.destroy({
+			where: {
+				name: req.params.name
+			}
+		})
 		res.sendStatus(204);
 	} catch (ex) {
 		next(ex);

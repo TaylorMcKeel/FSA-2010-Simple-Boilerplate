@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const { models: {User, Game}  } = require('../../db');
-const { Op } = require("sequelize");
+const { models: {Curr} } = require('../../db');
 
 module.exports = router;
 
@@ -16,6 +15,7 @@ router.get("/", async (req, res, next) => {
 //creates curr
 router.post("/", async (req, res, next) => {
 	try {
+		console.log(req.body)
 		res.status(201).send(await Curr.create(req.body));
 	} catch (ex) {
 		next(ex);
@@ -25,9 +25,11 @@ router.post("/", async (req, res, next) => {
 //deletes curr
 router.delete("/:id", async (req, res, next) => {
 	try {
-		const curr = await Curr.findByPk(req.params.id);
-		await curr.destroy();
-		res.sendStatus(204);
+		await Curr.destroy({
+			where:{
+			id: req.params.id
+			}
+		})
 	} catch (ex) {
 		next(ex);
 	}

@@ -5,7 +5,8 @@ import {
 	Cards,
   Chosen,
   Directions,
-  Home
+  Home,
+  Faves
 } from "./components";
 
 export class Routes extends Component{
@@ -14,6 +15,7 @@ export class Routes extends Component{
       <Switch>
         <Route path='/cards' component={Cards}/>
         <Route path='/chosen' component={Chosen}/>
+        <Route path='/faves' component={Faves}/>
         <Route path='/directions' component={Directions}/>
         <Route path='/' component={Home}/>
         <Redirect to='/'/>

@@ -35,6 +35,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         API_KEY: JSON.stringify(process.env.API_KEY),
+        MAP_KEY: JSON.stringify(process.env.MAP_KEY)
       },
     }),
     // To strip all locales except “en”

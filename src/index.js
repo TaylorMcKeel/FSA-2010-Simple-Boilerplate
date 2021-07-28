@@ -1,7 +1,34 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './app';
+import { HashRouter} from "react-router-dom";
+import { Provider, connect } from "react-redux";
+import store from "./store/index";
+import {Routes} from './Routes'
+import {NavBar} from './components'
 
-const app = document.querySelector('#app');
+class _App extends React.Component{
+  constructor(){
+    super()
+  }
+  render(){
+    return (
+      <HashRouter>
+        <div>
+          <NavBar/>
+          <Routes/>
+        </div>
+      </HashRouter>
+    );
+  }
+  
+};
 
-render(<App />, app);
+const root = document.querySelector('#app');
+const App = connect()(_App)
+
+render(
+	<Provider store={store}>
+		<App />
+	</Provider>,
+  root
+);

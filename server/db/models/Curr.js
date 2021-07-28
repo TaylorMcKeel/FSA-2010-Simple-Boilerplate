@@ -10,7 +10,7 @@ const Curr = db.define('curr', {
     type: STRING,
   },
   rating: {
-    type: INTEGER
+    type: STRING
   },
   reviews: {
     type: INTEGER
@@ -39,6 +39,9 @@ const Curr = db.define('curr', {
   long: {
     type: STRING
   },
+  website: {
+    type: STRING
+  }
 })
 
 module.exports = Curr

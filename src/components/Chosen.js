@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import {loadCurr, deleteCurr} from '../store/curr'
 import {addFave} from '../store/faves'
 import {Directions} from './Directions'
+import {Button} from '@material-ui/core'
+
 
 export class Chosen extends React.Component {
   constructor(props){
@@ -33,29 +35,35 @@ export class Chosen extends React.Component {
   render() {
     const {chosen} = this.state
     return(
-      <div>
-        <h3>Congratulations you have chosen</h3>
-        <h3>{chosen.name}</h3>
-        <div>
-          <img src={chosen.imgurl}/>
-          <p>Rating: {chosen.rating} ({chosen.reviews} reviews)</p>
-          <p>Price: {chosen.price}</p>
-          <p>Phone Number: {chosen.phone}</p>
-          <p>Address: {chosen.address}</p>
-          <p>{chosen.city}, {chosen.state} {chosen.zipcode}</p>
-          <div>
-            <button ><Link to='/directions'>Get Directions</Link></button>
-            <button ><a href={chosen.website}>Make a Reservation</a></button>
-            {!this.state.fave ? 
-              <button onClick={this.addNewFave}>Save for Later</button> 
-            : 
-              <button>Saved</button>
-            }
-            <button onClick={this.removeChosen}><Link to='/cards'>Start Over</Link></button>
+      <div class='chosenBox'>
+        <h2 class='congrats'>Congratulations you have chosen</h2>
+        <h2 class='resName'>{chosen.name}</h2>
+        <div class='chosenBox'>
+          <div class='imgAndMap'>
+            <img class='chosenImg' src={chosen.imgurl}/>
+            <Directions chosen={chosen}/>
           </div>
-        </div>
-        <div >
-          <Directions chosen={chosen}/>
+          <div class='chosenInfoBox'>
+            <p><span class='cardUnder'>Rating:</span> {chosen.rating} ({chosen.reviews} reviews)</p>
+            <p><span class='cardUnder'>Price:</span> {chosen.price}</p>
+            <p><span class='cardUnder'>Phone Number:</span> {chosen.phone}</p>
+            <div class='cardAddy'>
+              <p><span class='cardUnder'>Address:</span></p>
+              <div class='addyInfo'>
+                <p> {chosen.address}</p>
+                <p>{chosen.city}, {chosen.state} {chosen.zipcode}</p>
+              </div>
+            </div>
+          </div>
+          <div class='faveButtonBox'>
+            <Button className='faveButton'><a className='goNow' href={chosen.website}>Make a Reservation</a></Button>
+            {!this.state.fave ? 
+              <Button className='faveButton' onClick={this.addNewFave}>Save for Later</Button> 
+            : 
+              <Button className='faveButton'>Saved</Button>
+            }
+            <Button className='faveButton' onClick={this.removeChosen}><Link className='goNow' to='/cards'>Start Over</Link></Button>
+          </div>
         </div>
       </div>
     )

@@ -4,6 +4,8 @@ import {loadFaves, deleteFave} from '../store/faves'
 import {addCurr} from '../store/curr'
 import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
+import {Button} from '@material-ui/core'
+
 
 
 export class Faves extends React.Component {
@@ -35,22 +37,29 @@ export class Faves extends React.Component {
   render() {
     const {faves} =this.state
     return(
-      <div>
-        <h3>Your Favorites!</h3>
-        <ul>
+      <div class='faveBox'>
+        <h3 class='faveHeader'>Your Favorites!</h3>
+        <ul class='faveCardBox'>
           {faves.map((res)=>{
             return(
-              <div key={res.id}>
-                <h2>{res.name}</h2>
-                <img src={res.imgurl}/>
-                <p>Rating: {res.rating} ({res.reviews} reviews)</p>
-                <p>Price: {res.price}</p>
-                <p>Phone Number: {res.phone}</p>
-                <p>Address: {res.address}</p>
-                <p>{res.city}, {res.state} {res.zipcode}</p>
-                <div>
-                  <button id={res.name} onClick={(ev)=>this.removeFave(ev)}>Remove as Favorite</button>
-                  <button  onClick={(ev)=>this.goNow(ev)}><Link id ={res.name} to='/chosen'>Go Now</Link></button>
+              <div key={res.id} class='cardBox'>
+                <h2 class='cardHeader'>{res.name}</h2>
+                <img class='cardImg' src={res.imgurl}/>
+                <div class='cardInfoBox'>
+                  <p><span class='cardUnder'>Rating:</span> {res.rating} ({res.reviews} reviews)</p>
+                  <p><span class='cardUnder'>Price:</span> {res.price}</p>
+                  <p><span class='cardUnder'>Phone Number:</span> {res.phone}</p>
+                  <div class='cardAddy'>
+                    <p><span class='cardUnder'>Address:</span></p>
+                    <div class='addyInfo'>
+                      <p> {res.address}</p>
+                      <p>{res.city}, {res.state} {res.zipcode}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class='faveButtonBox'>
+                  <Button className='faveButton' id={res.name} onClick={(ev)=>this.removeFave(ev)}>Remove as Favorite</Button>
+                  <Button className='faveButton' onClick={(ev)=>this.goNow(ev)}><Link id ={res.name} className='goNow' to='/chosen'>Go Now</Link></Button>
                 </div>
               </div>
             )

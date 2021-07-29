@@ -1,15 +1,12 @@
-img {
-  width: 50%;
-  /* max-height: 150px; */
-}
-
 .card {
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 1px solid black;
-  width: 33%;
+  width: 500px;
+  height: 500px;
   margin: 30px;
+  border-radius: 20px;
 }
 
 #main {
@@ -25,10 +22,202 @@ input {
 #form {
   display: flex;
   flex-direction: column;
+  width: 400px;
+  align-items: center;
 }
 
 #search {
   width: 25%;
   align-self: center;
   margin-top: 10px;
+}
+
+.redx {
+  color: rgb(214, 4, 4);
+}
+
+.mainNext {
+  text-decoration: none;
+  color: black;
+  font-size: xxx-large;
+}
+
+.mainNav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navButtonBox {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 20px;
+}
+
+.navButton {
+  text-decoration: none;
+  color: black;
+  font-size: larger;
+}
+
+.homeBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  padding-top: 10px;
+}
+.homeBox > p {
+  width: 75%;
+  align-content: center;
+  font-size: larger;
+  text-align: center;
+}
+
+hr {
+  border-top: 2px solid red;
+  width: 100%;
+}
+
+.faveBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.faveHeader {
+  font-size: xx-large;
+}
+
+.faveCardBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cardImg {
+  width: 250px;
+  height: 200px;
+}
+
+.cardBox {
+  border: 1px black solid;
+  border-radius: 20px;
+  height: 550px;
+  margin: 20px;
+  padding: 30px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.faveButtonBox > button {
+  border: 1px black solid;
+  text-decoration: none;
+  margin: 10px;
+}
+
+.goNow {
+  text-decoration: none;
+  color: black;
+}
+
+.cardBox > p {
+  margin: 10px;
+}
+.cardUnder {
+  text-decoration: underline;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.cardAddy {
+  display: flex;
+  flex-direction: row;
+}
+
+.addyInfo {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+}
+
+.addyInfo > p {
+  margin: 0px;
+  margin-left: 15px;
+}
+
+.cardHeader {
+  max-width: 250px;
+  text-align: center;
+}
+
+.chosenBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.congrats {
+  font-size: xx-large;
+  margin-top: 50px;
+}
+.resName {
+  margin-top: 0px;
+  font-size: xx-large;
+  padding-bottom: 10px;
+}
+
+.chosenBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.chosenImg {
+  width: 400px;
+  height: 300px;
+}
+.imgAndMap {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  align-content: space-around;
+  justify-content: center;
+}
+
+.imgAndMap > * {
+  padding: 25px;
+}
+
+.chosenInfoBox > * {
+  font-size: large;
+}
+
+.chosenInfoBox {
+  margin-bottom: 20px;
+}
+
+.forLater > button {
+  margin: 20px;
+  border: 1px solid black;
+}
+
+.nextButtons > button {
+  margin: 10px;
+  border: 1px solid black;
+}
+
+.typing {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
 }

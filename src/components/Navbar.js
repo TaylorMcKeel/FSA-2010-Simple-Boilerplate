@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { deleteCurr, loadCurr} from '../store/curr'
 import { connect } from 'react-redux';
-
+import {Button} from '@material-ui/core'
 
 export class NavBar extends React.Component {
   constructor(props){
@@ -25,12 +25,13 @@ export class NavBar extends React.Component {
   
   render() {
     return(
-      <div>
-        <h1><Link onClick ={this.removeChosen} to='/'>NEXTaurant</Link></h1>
-        <div>
-          <h4><Link onClick ={this.removeChosen} to='/cards'>Search</Link></h4>
-          <h4><Link onClick ={this.removeChosen} to='/faves'>Favorites</Link></h4>
+      <div class='mainNav'>
+        <h1><Link className='mainNext' onClick ={this.removeChosen} to='/'>NE<span class='redx'>X</span>Taurant</Link></h1>
+        <div class='navButtonBox'>
+          <Button><Link className='navButton' onClick ={this.removeChosen} to='/cards'>Search</Link></Button>
+          <Button><Link className='navButton' onClick ={this.removeChosen} to='/faves'>Favorites</Link></Button>
         </div>
+        <hr/>
       </div>
     )
         

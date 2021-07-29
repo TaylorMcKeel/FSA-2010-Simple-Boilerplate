@@ -1,11 +1,12 @@
 import React from "react";
 import axios from 'axios'
 import TinderCard from 'react-tinder-card'
-import { withGoogleMap, GoogleMap, DirectionsRenderer } from 'react-google-maps';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import {addCurr} from '../store/curr'
 import {addFave, deleteFave} from '../store/faves'
+import {Button, TextField} from '@material-ui/core'
+
 
 
 
@@ -104,48 +105,53 @@ export class Cards extends React.Component {
     this.setState({restaurants: res.data.businesses})   
   }
 
-  //Tinder card swiping function
-  // next(dir){
-  //   if(dir === 'left'){
-  //     console.log(dir)
-  //     const res = [...this.state.restaurants]
-  //     res.shift()
-  //     this.setState({restaurants: res})
-  //   }
+  // Tinder card swiping function
+  // next(){
+  //   const res = [...this.state.restaurants]
+  //   res.shift()
+  //   this.setState({restaurants: res})
   // }
   
   
   render() {
     const { restaurants, fave } = this.state;
     const res = restaurants[0]
+    console.log(res)
     return (
       <div id='main'>
         <div id='form'>
-          <div >
-            <label for="location">Zip Code:</label>
-            <input type="text" id="location" name="location" onChange={this.handleChange}/>
-            <label for="categories">Category:</label>
-            <input type="text" id="categories" name="categories" onChange={this.handleChange} placeholder='ex: Thai'/>
+          <div class='typing'>
+            <TextField   type="text" label='Zip Code:' id="location" name="location" onChange={this.handleChange}/>
+            <TextField  type="text" label='Category:' id="categories" name="categories" onChange={this.handleChange} placeholder='ex: Thai'/>
           </div>
-          <button id='search' onClick={this.searchRes}>Search</button>
+          <Button id='search' onClick={this.searchRes}>Search</Button>
         </div>
-          {res ? <TinderCard className='card'  onSwipe={(dir) => this.next(dir)}>
+          {res ? <TinderCard className='card'  onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)}>
               <h2>{res.name}</h2>
-              <img src={res.image_url}/>
-              <p>Rating: {res.rating} ({res.review_count} reviews)</p>
-              <p>Price: {res.price}</p>
-              <p>Phone Number: {res.display_phone}</p>
-              <p>Address: {res.location.address1}</p>
-              <p>{res.location.city}, {res.location.state} {res.location.zip_code}</p>
-              {!fave ? (
-                <button onClick={this.addNewFave}>Save for Later</button>
-              ) : (
-                <button onClick={this.removeFave}>Remove from Favorites</button>
-              )}
+              <img class='cardImg' src={res.image_url}/>
+              <div class='cardInfoBox'>
+                <p><span class='cardUnder'>Rating:</span> {res.rating} ({res.review_count} reviews)</p>
+                <p><span class='cardUnder'>Price:</span> {res.price}</p>
+                <p><span class='cardUnder'>Phone Number:</span> {res.phone}</p>
+                <div class='cardAddy'>
+                  <p><span class='cardUnder'>Address:</span></p>
+                  <div class='addyInfo'>
+                    <p> {res.location.address1}</p>
+                    <p>{res.location.city}, {res.location.state} {res.location.zip_code}</p>
+                  </div>
+                </div>
+              </div>
+              <div class='forLater'>
+                {!fave ? (
+                  <Button onClick={this.addNewFave}>Save for Later</Button>
+                ) : (
+                  <Button  onClick={this.removeFave}>Remove from Favorites</Button>
+                )}
+              </div>
           </TinderCard> : ''}
-        <div>
-          <button onClick={this.nextButt}>NEXT</button>
-          <button onClick={this.chosen}><Link to='/chosen'>GO</Link></button>
+        <div class='nextButtons'>
+          <Button onClick={this.nextButt}>NEXT</Button>
+          <Button  onClick={this.chosen}><Link className='goNow' to='/chosen'>GO</Link></Button>
         </div>
       </div> 
     )

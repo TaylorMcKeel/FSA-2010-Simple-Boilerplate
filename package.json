@@ -9,7 +9,7 @@
     "build:watch": "webpack --watch",
     "start:server": "node-dev --respawn server",
     "start:dev": "npm run build:watch & npm run start:server",
-    "heroku-postbuild": "webpack -p"
+    
   },
   "repository": {
     "type": "git",

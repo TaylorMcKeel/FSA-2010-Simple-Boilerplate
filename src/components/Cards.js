@@ -116,7 +116,6 @@ export class Cards extends React.Component {
   render() {
     const { restaurants, fave } = this.state;
     const res = restaurants[0]
-    console.log(res)
     return (
       <div id='main'>
         <div id='form'>
@@ -126,7 +125,7 @@ export class Cards extends React.Component {
           </div>
           <Button id='search' onClick={this.searchRes}>Search</Button>
         </div>
-          {res ? <TinderCard className='card'  onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)}>
+          {res ? <div className='card' >
               <h2>{res.name}</h2>
               <img class='cardImg' src={res.image_url}/>
               <div class='cardInfoBox'>
@@ -148,7 +147,7 @@ export class Cards extends React.Component {
                   <Button  onClick={this.removeFave}>Remove from Favorites</Button>
                 )}
               </div>
-          </TinderCard> : ''}
+          </div> : ''}
         <div class='nextButtons'>
           <Button onClick={this.nextButt}>NEXT</Button>
           <Button  onClick={this.chosen}><Link className='goNow' to='/chosen'>GO</Link></Button>

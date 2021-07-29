@@ -1,5 +1,4 @@
 import React from "react";
-import axios from 'axios'
 import {loadFaves, deleteFave} from '../store/faves'
 import {addCurr} from '../store/curr'
 import {Link} from 'react-router-dom'
@@ -24,9 +23,9 @@ export class Faves extends React.Component {
     this.setState({faves: faves.faves})
   }
   async removeFave(ev){
-    await this.props.deleteFave(ev.target.id)
-    // await this.props.loadFaves()
-    const state = this.state.faves.filter(res => res.name !== ev.target.id)
+    console.log(ev.target.parentElement.id)
+    await this.props.deleteFave(ev.target.parentElement.id)
+    const state = this.state.faves.filter(res => res.name !== ev.target.parentElement.id)
     this.setState({faves: state})
   }
   goNow(ev){
@@ -58,8 +57,8 @@ export class Faves extends React.Component {
                   </div>
                 </div>
                 <div class='faveButtonBox'>
-                  <Button className='faveButton' id={res.name} onClick={(ev)=>this.removeFave(ev)}>Remove as Favorite</Button>
-                  <Button className='faveButton' onClick={(ev)=>this.goNow(ev)}><Link id ={res.name} className='goNow' to='/chosen'>Go Now</Link></Button>
+                  <Button className='faveButton' id={res.name} onClick={(ev)=>this.removeFave(ev)}>Remove from Favorite</Button>
+                  <Button id={res.name} className='faveButton' onClick={(ev)=>this.goNow(ev)}><Link  className='goNow' to='/chosen'>Go Now</Link></Button>
                 </div>
               </div>
             )

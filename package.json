@@ -8,8 +8,7 @@
     "build": "webpack",
     "build:watch": "webpack --watch",
     "start:server": "node-dev --respawn server",
-    "start:dev": "npm run build:watch & npm run start:server",
-    
+    "start:dev": "npm run build:watch & npm run start:server"
   },
   "repository": {
     "type": "git",

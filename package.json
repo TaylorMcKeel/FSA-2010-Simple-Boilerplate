@@ -39,6 +39,7 @@
     "file-loader": "^6.2.0",
     "moment-locales-webpack-plugin": "^1.2.0",
     "node-dev": "^6.3.0",
+    "nodemon": "^2.0.12",
     "pg": "^8.6.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

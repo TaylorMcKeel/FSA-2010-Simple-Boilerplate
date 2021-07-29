@@ -4,7 +4,7 @@ import { HashRouter} from "react-router-dom";
 import { Provider, connect } from "react-redux";
 import store from "./store/index";
 import {Routes} from './Routes'
-import {NavBar} from './components'
+import {NavBar} from './components/NavBar'
 
 class _App extends React.Component{
   constructor(){
